@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class TextUtils {
     static int toBase10(String binary) {
         int total = 0;
