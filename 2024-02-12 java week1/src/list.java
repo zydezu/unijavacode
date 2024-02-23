@@ -53,6 +53,20 @@ class Converter {
 public class list{
     public static void main(String[] args) throws Exception {
 
+        int value = 2;
+        final int x = 3;
+        switch (value) {
+            case 2:
+                System.out.println("two");
+            case 1:
+                System.out.println("one");
+                break;
+            case x:
+                System.out.println("x");
+            default:
+                System.out.println("I don't understand");
+        }
+
         System.err.println(30 + Converter.ZERO_KELVIN);
         System.out.println(Converter.kelvinToCelcius(300));
         Converter.printCelcius(22);
