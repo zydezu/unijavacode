@@ -55,12 +55,15 @@ public class list{
 
         int value = 2;
         final int x = 3;
+        // switch is used over if here for readability
         switch (value) {
             case 2:
                 System.out.println("two");
-            case 1:
+            case 5:
                 System.out.println("one");
-                break;
+            case 4:
+                System.out.println("one");
+                break; // if you don't have a 'break' - it'll keep trickling downwards
             case x:
                 System.out.println("x");
             default:
