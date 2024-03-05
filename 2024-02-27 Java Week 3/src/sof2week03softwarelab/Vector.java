@@ -50,7 +50,9 @@ public class Vector {
         return new Vector(newVector);
     }
 
+    @Override
     public boolean equals(Object other) {
+        if (this == other) return true;
         if (!(other instanceof Vector)) {
             return false;
         }
