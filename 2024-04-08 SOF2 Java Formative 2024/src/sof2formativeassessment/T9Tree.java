@@ -127,28 +127,25 @@ public class T9Tree {
 		}
 	}
 
-	public String getWordsRecur(T9Tree node) {
-		for (int i = 0; i < node.children.length; i++) {
-			if (node.hasChild(i)) {
-				getWordsRecur(node.children[i]);
-			} else {
-				getWordsRecurHelp(node.children[i]);
-			}
-		}
-		return " ";
-	}
-	
-	String getWordsRecurHelp(T9Tree node) {
-		if ()
-
-		System.err.println(node.words);
-
-		return " "; 
-	}
-
 	public Set<String> getallWords() {
 		Set<String> allWords = new HashSet<>();
-		getWordsRecur(this);
+
+		T9Tree node = this;
+		while (true) {
+			for (int i = 0; i < this.children.length; i++) {
+				System.err.println(i);
+				if (node == null) break;
+				if (hasChild(i)) {
+					System.err.println("child");
+					node = node.children[i];
+					i = -1;
+				} else {
+					System.err.println(words);
+				}
+			}
+			break;
+		}
+
 		return allWords;
 	}
 	
@@ -160,7 +157,5 @@ public class T9Tree {
 		tree.add("4663", "good");
 
 		System.err.println(tree.getallWords());
-
 	}
-
 }

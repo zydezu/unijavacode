@@ -1,14 +1,10 @@
 package sof2formativeassessment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.xml.crypto.dsig.CanonicalizationMethod;
 
 public class T9Pad {
 
@@ -128,10 +124,10 @@ public class T9Pad {
 		pad.addKey(7, "pqrs");
 		pad.addKey(8, "tuv");
 		pad.addKey(9, "wxyz");
-		// System.err.println(pad.getKeyCode('a'));
-		// System.err.println(pad.getKeyCode('f'));
+		System.err.println(pad.getKeyCode('a'));
+		System.err.println(pad.getKeyCode('f'));
 
-		// System.err.println(pad.getPadLetters());
+		System.err.println(pad.getPadLetters());
 
 		System.err.println(pad.isTextonym("good", "home"));
 		System.err.println(pad.isTextonym("gone", "home"));
