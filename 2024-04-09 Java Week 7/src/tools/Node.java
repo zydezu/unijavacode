@@ -13,4 +13,9 @@ class Node<T> {
         this.data = data;
         this.next = tail;
     }
+
+    @Override
+    public String toString() {
+        return "Node: " + this.data;
+    }
 }

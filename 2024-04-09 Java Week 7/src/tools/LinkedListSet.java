@@ -33,7 +33,7 @@ public class LinkedListSet<E> implements ISet<E> {
             return false;
         }
         while(currentNode != null) {
-            if (currentNode == elt) {
+            if (currentNode.data == elt) {
                 return true;
             }
             currentNode = currentNode.next;
@@ -53,8 +53,9 @@ public class LinkedListSet<E> implements ISet<E> {
             return false;
         }
         while(currentNode != null) {
-            if (currentNode == elt) {
+            if (currentNode.data == elt) {
                 currentNode = currentNode.next;
+                size--;
                 return true;
             }
             currentNode = currentNode.next;
@@ -66,4 +67,22 @@ public class LinkedListSet<E> implements ISet<E> {
     public int size() {
         return size;
     }
+
+    public static void main(String[] args) {
+        ISet<Integer> intLinkedList = new LinkedListSet<>(); 
+
+        System.err.println(intLinkedList.isEmpty());
+        intLinkedList.add(3);
+        intLinkedList.add(17);
+        intLinkedList.add(12);
+        intLinkedList.add(4);
+        
+        System.err.println(intLinkedList.remove(3));
+        System.err.println(intLinkedList.remove(4));
+        System.err.println(intLinkedList.contains(12));
+        System.err.println(intLinkedList.size());
+        
+        System.err.println(intLinkedList.isEmpty());
+
+    }    
 }
