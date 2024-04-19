@@ -1,9 +1,7 @@
 package shopping;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.ListIterator;
 
 public class Laptop {
     public static final String BRAND = "BRAND";
