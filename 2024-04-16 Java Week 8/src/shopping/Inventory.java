@@ -19,13 +19,13 @@ public class Inventory {
 
     public List<Laptop> sortInventory(String field) throws IllegalArgumentException {
         List<Laptop> laptops = new ArrayList<>(stockList.values());
-        laptops.sort(Laptop.getComparator(field));
+        laptops.sort(Laptop.LaptopComparator.getComparator(field));
         return laptops;
     }
 
     public List<Laptop> sortInventory(String field, Boolean reversed) throws IllegalArgumentException {
         List<Laptop> laptops = new ArrayList<>(stockList.values());
-        laptops.sort(Laptop.getComparator(field));
+        laptops.sort(Laptop.LaptopComparator.getComparator(field));
         if (reversed) Collections.reverse(laptops);
         return laptops;
     }

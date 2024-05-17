@@ -78,20 +78,22 @@ public class Laptop {
         this.price = price;
     }
 
-    public static Comparator<Laptop> getComparator(String field) throws IllegalArgumentException {
-        switch (field) {
-            case BRAND:
-                return Comparator.comparing(Laptop::getBrand);
-            case MODEL:
-                return Comparator.comparing(Laptop::getModel);
-            case RAM:
-                return Comparator.comparingInt(Laptop::getRAM);
-            case SSD:
-                return Comparator.comparingInt(Laptop::getSSD);
-            case PRICE:
-                return Comparator.comparingInt(Laptop::getPrice);
-            default:
-                throw new IllegalArgumentException("Invalid field: " + field);
+    static class LaptopComparator {
+        public static Comparator<Laptop> getComparator(String field) throws IllegalArgumentException {            
+            switch (field) {
+                case BRAND:
+                    return Comparator.comparing(Laptop::getBrand);
+                case MODEL:
+                    return Comparator.comparing(Laptop::getModel);
+                case RAM:
+                    return Comparator.comparingInt(Laptop::getRAM);
+                case SSD:
+                    return Comparator.comparingInt(Laptop::getSSD);
+                case PRICE:
+                    return Comparator.comparingInt(Laptop::getPrice);
+                default:
+                    throw new IllegalArgumentException("Invalid field: " + field);
+            }
         }
     }
 
@@ -110,7 +112,8 @@ public class Laptop {
         laps.add(new Laptop("005", "Asus", "minibook", 2, 64, 40000));
 
         ArrayList<Laptop> lapsToSort = new ArrayList<>(laps);
-        lapsToSort.sort(getComparator(BRAND));
+        
+        lapsToSort.sort(LaptopComparator.getComparator(BRAND));
         System.err.println(lapsToSort);
         // ListIterator<Laptop> li = lapList.listIterator();
         // System.err.println(li.next());

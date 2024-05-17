@@ -1,4 +1,5 @@
 package exercise;
+
 public interface IAsset {
 
 	public String getContent();
@@ -6,6 +7,6 @@ public interface IAsset {
 	public BoundingBox getArea();
 
 	public Boolean intersects(BoundingBox area);
-	
+
 	public Boolean isContainedIn(BoundingBox area);
 }

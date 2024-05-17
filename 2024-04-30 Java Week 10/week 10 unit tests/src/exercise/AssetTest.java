@@ -1,4 +1,5 @@
 package exercise;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -14,6 +15,7 @@ public class AssetTest {
 		IAsset asset = new Asset("Warehouse 51", new BoundingBox(11, 21, 31, 41));
 		BoundingBox b1 = asset.getArea();
 		assertTrue("Setting Asset.content is incorrect.", asset.getContent().equals("Warehouse 51"));
+		// assertEquals("Setting Asset.content is incorrect.", asset.getContent(), "Warehouse 51");
 		assertEquals("Setting Asset.x is incorrect.", b1.x, 11);
 		assertEquals("Setting Asset.y is incorrect.", b1.y, 21);
 		assertEquals("Setting Asset.width is incorrect.", b1.width, 31);
@@ -22,7 +24,7 @@ public class AssetTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	/**
-	 * Checks that the class' constructor throws an IllegalArgumentException 
+	 * Checks that the class' constructor throws an IllegalArgumentException
 	 * if the argument content is invalid, i.e. is null.
 	 */
 	public void testAssetConstructorError() {
@@ -31,7 +33,7 @@ public class AssetTest {
 
 	@Test
 	/**
-	 * Checks method intersects(BoundingBox). In particular test 
+	 * Checks method intersects(BoundingBox). In particular test
 	 * intersection on the border of the bounding box.
 	 */
 	public void testIntersects() {
