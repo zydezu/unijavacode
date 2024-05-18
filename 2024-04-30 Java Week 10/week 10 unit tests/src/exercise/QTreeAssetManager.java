@@ -1,4 +1,5 @@
 package exercise;
+
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,44 +33,45 @@ public class QTreeAssetManager extends IAssetManager {
 
 	@Override
 	/**
-	 * Returns a String representation of the quadtree in the format below. The 
+	 * Returns a String representation of the quadtree in the format below. The
 	 * children order is ne, nw, sw and se.
-	 * --+ [A4]  
-	 *   |
-	 *   +--+ []
-	 *   |
-	 *   +--+ [A2, A3]
-	 *   |  |
-	 *   |  +--+ []
-	 *   |  |
-	 *   |  +--+ [A1]
-	 *   |  |
-	 *   |  +--+ []
-	 *   |  |
-	 *   |  +--+ []
-	 *   |   
-	 *   +--+ []
-	 *   |
-	 *   +--+ []
+	 * --+ [A4]
+	 * |
+	 * +--+ []
+	 * |
+	 * +--+ [A2, A3]
+	 * | |
+	 * | +--+ []
+	 * | |
+	 * | +--+ [A1]
+	 * | |
+	 * | +--+ []
+	 * | |
+	 * | +--+ []
+	 * |
+	 * +--+ []
+	 * |
+	 * +--+ []
 	 */
-    public String toString() {
-        StringBuffer output = new StringBuffer();
-        toString("", output);
-        return output.toString();
+	public String toString() {
+		StringBuffer output = new StringBuffer();
+		toString("", output);
+		return output.toString();
 	}
-	
+
 	/**
 	 * NOT NEEDED FOR THE EXERCISE.
-	 * Convenience method to return the list of assets into a string. Used by 
-	 * the toString(String, String) method. 
+	 * Convenience method to return the list of assets into a string. Used by
+	 * the toString(String, String) method.
+	 * 
 	 * @return
 	 */
-	private String listAssets(){
+	private String listAssets() {
 		String output = "[";
 		for (IAsset abstractAsset : assets) {
-			output += abstractAsset.getContent() +", ";
+			output += abstractAsset.getContent() + ", ";
 		}
-		if(output.length() > 1){
+		if (output.length() > 1) {
 			output = output.substring(0, output.length() - 2);
 		}
 		return output += "]";
@@ -77,49 +79,49 @@ public class QTreeAssetManager extends IAssetManager {
 
 	/**
 	 * NOT NEEDED FOR THE EXERCISE.
-	 * Convenience method for the recursive construction of the String 
+	 * Convenience method for the recursive construction of the String
 	 * representation of the tree. Used by the toString() method.
-	 * @param prefix 
+	 * 
+	 * @param prefix
 	 * @param output
 	 */
-    private void toString(String prefix, StringBuffer output) {
-        if (prefix.length() == 0) {
-            output.append(prefix + "--+ " + listAssets() + "\n");
-        } else {
-            output.append(prefix.substring(0, prefix.length() - 1) + "+--+ " + listAssets() + "\n");
-        }
-        if (ne != null || nw != null || se != null || sw != null) {
-            output.append(prefix + "  |\n");
-        } else {
-            output.append(prefix + "\n");
-            return;
+	private void toString(String prefix, StringBuffer output) {
+		if (prefix.length() == 0) {
+			output.append(prefix + "--+ " + listAssets() + "\n");
+		} else {
+			output.append(prefix.substring(0, prefix.length() - 1) + "+--+ " + listAssets() + "\n");
 		}
-		if(ne != null){
-        	String newPrefix = prefix + "  |";
-           	ne.toString(newPrefix, output);
+		if (ne != null || nw != null || se != null || sw != null) {
+			output.append(prefix + "  |\n");
+		} else {
+			output.append(prefix + "\n");
+			return;
+		}
+		if (ne != null) {
+			String newPrefix = prefix + "  |";
+			ne.toString(newPrefix, output);
 		} else {
 			output.append(prefix + "--<ne> \n");
 		}
-		if(nw != null){
-            String newPrefix = prefix + "  |";
-           	nw.toString(newPrefix, output);
+		if (nw != null) {
+			String newPrefix = prefix + "  |";
+			nw.toString(newPrefix, output);
 		} else {
 			output.append(prefix + "--<nw> \n");
 		}
-		if(sw != null){
-            String newPrefix = prefix + "  |";
-           	sw.toString(newPrefix, output);
+		if (sw != null) {
+			String newPrefix = prefix + "  |";
+			sw.toString(newPrefix, output);
 		} else {
 			output.append(prefix + "--<se> \n");
 		}
-		if(se != null){
-            String newPrefix = prefix + "   ";
-           	se.toString(newPrefix, output);
+		if (se != null) {
+			String newPrefix = prefix + "   ";
+			se.toString(newPrefix, output);
 		} else {
 			output.append(prefix + "--<sw> \n");
 		}
-    }
-
+	}
 
 	private void subdivide() throws Exception {
 		if (this.region.width <= 1 || this.region.height <= 1) {
@@ -225,4 +227,67 @@ public class QTreeAssetManager extends IAssetManager {
 		}
 	}
 
+	public Set<IAsset> getAssets() {
+		Set<IAsset> allAssets = new HashSet<IAsset>();
+		ArrayList<QTreeAssetManager> toDoList = new ArrayList<>();
+		toDoList.add(this);
+		while (!toDoList.isEmpty()) {
+			QTreeAssetManager current = toDoList.get(0);
+			toDoList.remove(0);
+
+			for (IAsset iAsset : current.assets) {
+				allAssets.add(iAsset);
+			}
+			if (current.ne != null)
+				toDoList.add(current.ne);
+			if (current.nw != null)
+				toDoList.add(current.nw);
+			if (current.se != null)
+				toDoList.add(current.se);
+			if (current.sw != null)
+				toDoList.add(current.sw);
+		}
+		return allAssets;
+	}
+
+	public Set<IAsset> getAssets(BoundingBox region) {
+		Set<IAsset> allAssets = new HashSet<IAsset>();
+		ArrayList<QTreeAssetManager> toDoList = new ArrayList<>();
+		toDoList.add(this);
+		while (!toDoList.isEmpty()) {
+			QTreeAssetManager current = toDoList.get(0);
+			toDoList.remove(0);
+
+			for (IAsset iAsset : current.assets) {
+				if (iAsset.intersects(region)) {
+					allAssets.add(iAsset);
+				}
+			}
+			if (current.ne != null)
+				if (region.intersects(current.getNEBoundingBox()))
+					toDoList.add(current.ne);
+			if (current.nw != null)
+				if (region.intersects(current.getNWBoundingBox()))
+					toDoList.add(current.nw);
+			if (current.se != null)
+				if (region.intersects(current.getSEBoundingBox()))
+					toDoList.add(current.se);
+			if (current.sw != null)
+				if (region.intersects(current.getSWBoundingBox()))
+					toDoList.add(current.sw);
+		}
+		return allAssets;
+	}
+
+	public static void main(String[] args) {
+		QTreeAssetManager parent = new QTreeAssetManager(null, new BoundingBox(0, 0, 512, 512));
+		parent.addAsset(new Asset("A1", new BoundingBox(40, 32, 50, 32)));
+		parent.addAsset(new Asset("A2", new BoundingBox(96, 96, 96, 64)));
+		parent.addAsset(new Asset("A3", new BoundingBox(110, 140, 40, 32)));
+		parent.addAsset(new Asset("A4", new BoundingBox(224, 224, 132, 90)));
+		parent.addAsset(new Asset("A5", new BoundingBox(0, 0, 512, 512)));
+
+		// System.err.println(parent);
+		parent.getAssets();
+	}
 }
