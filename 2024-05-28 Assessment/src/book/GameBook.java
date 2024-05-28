@@ -1,7 +1,10 @@
 package book;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
 
 public class GameBook {
     Hero hero;
@@ -49,6 +52,29 @@ public class GameBook {
     }
 
     public boolean checkCorrectness() {
-        return true;   
+        if (start == null)
+            return false;
+        if (endings.isEmpty())
+            return false;
+
+        Set<Integer> sectionsVisited = new HashSet<>();
+        Stack<AbstractBookSection> toVisit = new Stack<>();
+        toVisit.push(start);
+
+        while (!toVisit.isEmpty()) {
+            AbstractBookSection currentSection = toVisit.pop();
+            int currentSectionNumber = currentSection.getSectionNumber();
+
+            sectionsVisited.add(currentSectionNumber);
+
+            for (int nextSectionNumber : currentSection.getReferencedBookSections()) {
+                if (!sectionsVisited.contains(nextSectionNumber)) {
+                    AbstractBookSection nextSection = bookSections.get(nextSectionNumber);
+                    toVisit.push(nextSection);
+                }
+            }
+        }
+
+        return sectionsVisited.size() == bookSections.size();
     }
 }

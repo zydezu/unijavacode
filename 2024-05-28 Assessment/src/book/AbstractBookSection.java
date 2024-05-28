@@ -108,7 +108,7 @@ public abstract class AbstractBookSection {
 
     void checkSectionReferences(int number) throws InvalidSectionReferenceException {
         if (number <= 0) {
-            throw new InvalidSectionReferenceException("Number is less or equal to 0!", number);   
+            throw new InvalidSectionReferenceException("Number is less or equal to 0!", number);
         }
     }
 }

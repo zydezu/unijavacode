@@ -19,7 +19,8 @@ public class HealthBonusSection extends AbstractBookSection {
      * @param sections a set of all the section numbers a player can
      *                 choose from
      * @param bonus    the health bonus
-     * @throws InvalidSectionReferenceException thrown if number or any value in sections
+     * @throws InvalidSectionReferenceException thrown if number or any value in
+     *                                          sections
      *                                          is less than or equal to 0
      */
     public HealthBonusSection(int number, String text,
