@@ -18,13 +18,10 @@ public class BasicSection extends AbstractBookSection {
      */
     public BasicSection(int number, String text, Set<Integer> sections) {
         super(number, text);
-
-        throw new InvalidSectionReferenceException("A value in sections isn't greater than 0!", number);
-
-        // checkSectionReferences(number, sections);
-        // for (Integer integer : sections) {
-        //     addBookSectionReference(integer);
-        // }
+        checkSectionReferences(number, sections);
+        for (Integer integer : sections) {
+            addBookSectionReference(integer);
+        }
     }
 
     /**
