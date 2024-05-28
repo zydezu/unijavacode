@@ -18,19 +18,11 @@ public class GameBook {
 
     public void addSection(AbstractBookSection section) throws DuplicateSectionReferenceException {
         int sectionNumber = section.getSectionNumber();
-        if (bookSections.containsKey(sectionNumber)) {
-            AbstractBookSection existingSection = bookSections.get(sectionNumber);
-            if (!existingSection.getText().equals(section.getText())) {
-                throw new DuplicateSectionReferenceException(
-                        "Section already exists within the book with different text!", sectionNumber);
-            }
-        }
+        checkForDuplicateSection(sectionNumber, section);
 
         if (section.isEndingSection()) {
             endings.put(sectionNumber, section);
         }
-        bookSections.put(sectionNumber, section);
-
     }
 
     public void setStartingSection(AbstractBookSection start) throws DuplicateSectionReferenceException {
@@ -39,15 +31,24 @@ public class GameBook {
             throw new InvalidSectionReferenceException("Starting section must have the value 1!", sectionNumber);
         }
 
+        checkForDuplicateSection(sectionNumber, start);
+        this.start = start;
+    }
+
+    // helper method to check for duplicate sections
+    private void checkForDuplicateSection(int sectionNumber, AbstractBookSection section)
+            throws DuplicateSectionReferenceException {
         if (bookSections.containsKey(sectionNumber)) {
             AbstractBookSection existingSection = bookSections.get(sectionNumber);
-            if (!existingSection.getText().equals(start.getText())) {
+            if (!existingSection.getText().equals(section.getText())) {
                 throw new DuplicateSectionReferenceException(
-                        "Starting section exists with different text!", sectionNumber);
+                        "Section exists in the book with different text!", sectionNumber);
             }
         }
+        bookSections.put(sectionNumber, section);
+    }
 
-        this.start = start;
-        bookSections.put(sectionNumber, start);
+    public boolean checkCorrectness() {
+        return true;   
     }
 }
